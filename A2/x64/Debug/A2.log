@@ -1,27 +1,36 @@
 ﻿  Compiling CUDA source file main.cu...
   
   C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6\include"  -G   --keep-dir A2\x64\Debug  -maxrregcount=0   --machine 64 --compile -cudart static  -g  -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /FS /Zi /RTC1 /MDd " -Xcompiler "/FdA2\x64\Debug\vc143.pdb" -o "C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\A2\x64\Debug\main.cu.obj" "C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu" 
-C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\dense_graph.h(80): warning #177-D: variable "r1" was declared but never referenced
+C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\dense_graph.h(134): warning #177-D: variable "r1" was declared but never referenced
                             int r1 = g.adjacencyMatrix[r * g.n + i];
                                 ^
   
   Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
   
-C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\dense_graph.h(81): warning #177-D: variable "r2" was declared but never referenced
+C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\dense_graph.h(135): warning #177-D: variable "r2" was declared but never referenced
                             int r2 = g.adjacencyMatrix[i * g.n + c];
                                 ^
   
+C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\dense_graph.h(172): warning #177-D: variable "sum" was declared but never referenced
+                    int sum = 0;
+                        ^
+  
   main.cu
-  tmpxft_0000c324_00000000-7_main.cudafe1.cpp
+  tmpxft_00008488_00000000-7_main.cudafe1.cpp
 C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\data_generator.h(24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\data_generator.h(24): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
 C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\data_generator.h(29): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(25): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(25): note: the template instantiation context (the oldest one first) is
-  C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(66): note: see reference to function template instantiation 'void run<csc485b::a2::DenseGraph>(DeviceGraph,const csc485b::a2::edge_t *,size_t)' being compiled
+C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(74): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(90): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(130): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(130): note: the template instantiation context (the oldest one first) is
+  C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(178): note: see reference to function template instantiation 'void run<csc485b::a2::DenseGraph>(DeviceGraph,const csc485b::a2::edge_t *,size_t)' being compiled
           with
           [
               DeviceGraph=csc485b::a2::DenseGraph
           ]
-C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\main.cu(25): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+  LINK : C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\x64\Debug\A2.exe not found or not built by the last incremental link; performing full link
+     Creating library C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\x64\Debug\A2.lib and object C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\x64\Debug\A2.exp
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
   A2.vcxproj -> C:\Users\ryanf\Folders\School\YEAR 4 TERM 1\CSC 485B\A2\x64\Debug\A2.exe

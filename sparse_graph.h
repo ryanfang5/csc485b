@@ -18,6 +18,12 @@ namespace csc485b {
             std::size_t m; /**< Number of edges in the graph. */
             node_t* neighbours_start_at; /** Pointer to an n=|V| offset array */
             node_t* neighbours; /** Pointer to an m=|E| array of edge destinations */
+
+            __device__ __host__ __forceinline__
+                std::size_t neighbours_start_at_size() const { return n; }
+
+            __device__ __host__ __forceinline__
+                std::size_t neighbours_size() const { return m; }
         };
 
 
@@ -32,6 +38,110 @@ namespace csc485b {
                 void build_graph(SparseGraph g, edge_t const* edge_list, std::size_t m)
             {
                 // IMPLEMENT ME!
+                int r = blockIdx.y * blockDim.y + threadIdx.y;
+
+                int c = blockIdx.x * blockDim.x + threadIdx.x;
+
+                const int th_id = r * blockDim.y + c;
+
+                // CPU version
+
+
+                //if (th_id == 0) {
+
+                //    for (int i = 0; i < m; i++) {
+                //        int vertex = edge_list[i].x;
+                //        g.neighbours_start_at[vertex] += 1;
+                //    }
+
+                //    for (int i = 1; i < g.n; i++) {
+
+                //        g.neighbours_start_at[i] += g.neighbours_start_at[i - 1];
+
+                //    }
+
+                //    for (int i = g.n - 1; i > 0; i--) {
+                //        g.neighbours_start_at[i] = g.neighbours_start_at[i - 1];
+                //    }
+
+                //    g.neighbours_start_at[0] = 0;
+
+                //    for (int i = 0; i < m; i++) {
+                //        int x = edge_list[i].x;
+                //        int y = edge_list[i].y;
+
+                //        int id = g.neighbours_start_at[x];
+                //        g.neighbours[id] = y;
+                //        g.neighbours_start_at[x] += 1;
+                //    }
+
+
+                //    for (int i = g.n - 1; i > 0; i--) {
+                //        g.neighbours_start_at[i] = g.neighbours_start_at[i - 1];
+                //    }
+
+                //    g.neighbours_start_at[0] = 0;
+                //}
+
+
+
+
+                // GPU version
+
+
+                if (th_id < m) {
+                    int vertex = edge_list[th_id].x;
+                    atomicAdd(g.neighbours_start_at+vertex, 1);
+                }
+
+                for (int i = 1; i < g.n; i <<= 1) {
+
+                    if (th_id >= i && th_id < g.n) {
+                        g.neighbours_start_at[th_id] = g.neighbours_start_at[th_id] + g.neighbours_start_at[th_id - i];
+                    }
+
+                    __syncthreads();
+                }
+
+                if (th_id < g.n) {
+
+                    int val = g.neighbours_start_at[th_id];
+
+                    g.neighbours_start_at[th_id] = __shfl_up_sync(0xFFFFFFFF, val, 1);
+
+                }
+
+
+                if (th_id == 0) {
+
+                    g.neighbours_start_at[0] = 0;
+
+                    for (int i = 0; i < m; i++) {
+                        int x = edge_list[i].x;
+                        int y = edge_list[i].y;
+
+                        int id = g.neighbours_start_at[x];
+                        g.neighbours[id] = y;
+                        g.neighbours_start_at[x] += 1;
+                    }
+                }
+
+
+                if (th_id < g.n) {
+
+                    int val = g.neighbours_start_at[th_id];
+
+                    g.neighbours_start_at[th_id] = __shfl_up_sync(0xFFFFFFFF, val, 1);
+
+                }
+
+                if (th_id == 0) {
+                    g.neighbours_start_at[0] = 0;
+                }
+
+
+
+
                 return;
             }
 
